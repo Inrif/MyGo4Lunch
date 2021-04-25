@@ -1,0 +1,50 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">MyGo4Lunch</string>
+    <string name="google_maps_key">AIzaSyDSJqc7yJL30pE2rJPmH1DvbJnIxWKPGb8</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_map">Map View</string>
+    <string name="title_list_view">List View</string>
+    <string name="title_workmates">Workmates</string>
+    <string name="your_lunch">Votre déjeuner</string>
+    <string name="settings">Paramètres</string>
+    <string name="logout_MAJ">Déconnexion</string>
+
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="slogan">Trouvez un restaurant pour déjeuner avec vos collègues !!</string>
+
+    <string name="chosen_restaurant">Vous avez choisi ce restaurant</string>
+    <string name="connection_succeed">Authentification réussie !</string>
+    <string name="email">Email</string>
+    <string name="error_authentication_canceled">Authentification annulée !</string>
+    <string name="error_no_internet">Pas de connection internet !</string>
+    <string name="error_not_connected">Vous devez être connecté !</string>
+    <string name="error_unknown_error">une erreur est apparue</string>
+
+
+    <!-- FACEBOOK PURPOSE -->
+    <string name="facebook_application_id" translatable="false">289014062727476</string>
+    <string name="facebook_login_protocol_scheme" translatable="false" tools:ignore="UnusedResources">fb289014062727476</string>
+
+    <string name="no_choice_restaurant_workers">You don\'t have chosen a restaurant</string>
+    <string name="is_eating_at">" is eating at \n"</string>
+    <string name="hasn_t_decided">" hasn\'t decided yet"</string>
+    <string name="is_joining">" is joining!"</string>
+
+    <!-- Firebase query -->
+    <string name="error_query">Error getting documents : %s</string>
+    <string name="no_name_found">No name found</string>
+    <string name="no_mail_found">No email found</string>
+    <string name="you_haven_t_choice_restaurant">You haven\'t choice restaurant</string>
+    <string name="favorite_restaurant_message">Resataurant added to your favorite list</string>
+    <string name="restaurant_delete">Restaurant deleted from your favorite list</string>
+    <string name="no_telephone_number_for_this_restaurant">No telephone for this restaurant</string>
+    <string name="no_website_for_restaurant">No website for this restaurant</string>
+
+</resources>
+
