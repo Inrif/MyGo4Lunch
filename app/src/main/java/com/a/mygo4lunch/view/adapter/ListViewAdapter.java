@@ -1,9 +1,13 @@
 package com.a.mygo4lunch.view.adapter;
 
+import android.content.Context;
+import android.view.View.OnClickListener;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.a.mygo4lunch.R.id;
 import com.a.mygo4lunch.models.Result;
 import com.a.mygo4lunch.view.adapter.ListViewAdapter.ItemRestaurantViewHolder;
 import com.bumptech.glide.request.RequestOptions;
@@ -17,13 +21,15 @@ public class ListViewAdapter extends Adapter<ItemRestaurantViewHolder> {
     private static final String BASE_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
     private static final String API_KEY_PLACES = "AIzaSyDSJqc7yJL30pE2rJPmH1DvbJnIxWKPGb8";
     public static java.util.List<Result> restaurants;
-    private final android.content.Context mContext;
+    private final Context mContext;
+
+    private onClickRestaurantItemListener mOnClickRestaurantitemListener;
 
     public interface onClickRestaurantItemListener {
         void onClickRestaurantItem(int position);
     }
 
-    public static class ItemRestaurantViewHolder extends ViewHolder {
+    public static class ItemRestaurantViewHolder extends ViewHolder implements OnClickListener{
 
         private android.widget.TextView mRestaurantName;
         private android.widget.TextView mRestaurantAddress;
@@ -35,27 +41,44 @@ public class ListViewAdapter extends Adapter<ItemRestaurantViewHolder> {
         private android.widget.ImageView mRestaurantStar2;
         private android.widget.ImageView mRestaurantStar3;
 
-        public ItemRestaurantViewHolder(@NonNull android.view.View itemView) {
+        private ListViewAdapter.onClickRestaurantItemListener mListener;
+
+
+        public ItemRestaurantViewHolder(@androidx.annotation.NonNull android.view.View itemView,
+                                        onClickRestaurantItemListener listener) {
             super (itemView);
-            mRestaurantName = itemView.findViewById(com.a.mygo4lunch.R.id.item_restaurant_name);
-            mRestaurantAddress = itemView.findViewById(com.a.mygo4lunch.R.id.item_restaurant_category_and_adress);
-            mRestaurantOpenHour = itemView.findViewById(com.a.mygo4lunch.R.id.restaurant_hour);
-  //          mRestaurantWorkersNumber = itemView.findViewById(com.a.mygo4lunch.R.id.item_number_worker);
-            mRestaurantDistance = itemView.findViewById(com.a.mygo4lunch.R.id.item_restaurant_distance);
-            mRestaurantImage = itemView.findViewById(com.a.mygo4lunch.R.id.item_restaurant_image);
-  //          mRestaurantStar1 = itemView.findViewById(com.a.mygo4lunch.R.id.star1);
-    //        mRestaurantStar2 = itemView.findViewById(com.a.mygo4lunch.R.id.star2);
-      //      mRestaurantStar3  = itemView.findViewById(com.a.mygo4lunch.R.id.star3);
+            this.mListener = listener;
+            itemView.setOnClickListener (this);
+
+            mRestaurantName = itemView.findViewById(id.item_restaurant_name);
+            mRestaurantAddress = itemView.findViewById(id.item_restaurant_category_and_adress);
+            mRestaurantOpenHour = itemView.findViewById(id.restaurant_hour);
+            //          mRestaurantWorkersNumber = itemView.findViewById(com.a.mygo4lunch.R.id.item_number_worker);
+            mRestaurantDistance = itemView.findViewById(id.item_restaurant_distance);
+            mRestaurantImage = itemView.findViewById(id.item_restaurant_image);
+            //          mRestaurantStar1 = itemView.findViewById(com.a.mygo4lunch.R.id.star1);
+            //        mRestaurantStar2 = itemView.findViewById(com.a.mygo4lunch.R.id.star2);
+            //      mRestaurantStar3  = itemView.findViewById(com.a.mygo4lunch.R.id.star3);
 
         }
 
 
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(android.view.View v) {
+            mListener.onClickRestaurantItem (getAdapterPosition ());
+        }
     }
 
 
-    public ListViewAdapter(java.util.List<Result> exampleList, android.content.Context mContext) {
+    public ListViewAdapter(java.util.List<Result> exampleList, Context mContext,onClickRestaurantItemListener onClickRestaurantitemListener) {
         restaurants = exampleList;
         this.mContext = mContext;
+        this.mOnClickRestaurantitemListener = onClickRestaurantitemListener;
     }
 
     @Override
@@ -63,8 +86,11 @@ public class ListViewAdapter extends Adapter<ItemRestaurantViewHolder> {
         android.view.View itemView = android.view.LayoutInflater.from(parent.getContext())
                 .inflate(com.a.mygo4lunch.R.layout.restaurant_item, parent, false);
 
-        ItemRestaurantViewHolder evh = new ItemRestaurantViewHolder (itemView);
-        return evh;
+//        ItemRestaurantViewHolder evh = new ItemRestaurantViewHolder (itemView);
+//        return evh;
+
+        return new ItemRestaurantViewHolder (itemView, mOnClickRestaurantitemListener);
+
 
     }
 

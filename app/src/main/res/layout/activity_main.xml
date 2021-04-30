@@ -69,11 +69,11 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="bottom|center"
             android:contentDescription="logo of the application"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/bolrestaurant" />
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

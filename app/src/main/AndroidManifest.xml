@@ -16,12 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".view.activities.ActivitySettings"></activity>
         <activity android:name=".view.activities.DetailRestaurant">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.activities.MainActivity" />
-
         </activity>
         <activity android:name=".view.activities.ConnectionActivity">
             <intent-filter>

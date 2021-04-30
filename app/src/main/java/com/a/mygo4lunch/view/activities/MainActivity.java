@@ -26,10 +26,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView.*;
 import com.a.mygo4lunch.R.*;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
+import static androidx.core.view.GravityCompat.START;
 import static com.a.mygo4lunch.view.activities.ConnectionActivity.mFirebaseAuth;
 
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private MapFragment mMapFragment = new MapFragment();
     private ListViewFragment mListViewFragmentFragment = new ListViewFragment ();
     private WorkmatesFragment mWorkmatesFragment = new WorkmatesFragment ();
+    private DetailRestaurantFragment mDetailRestaurantFragment = new DetailRestaurantFragment ();
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -66,19 +69,25 @@ public class MainActivity extends AppCompatActivity {
         user = this.getCurrentUser ();
 
         // 2 - Configure and show home fragment
-        this.configureAndShowMapFragment(mMapFragment);
+        this.configureAndShowFragment (mMapFragment);
 
 
 
         BottomNavigationView navigation = ( BottomNavigationView) findViewById(id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+// Find our drawer view
+        //       nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        // Setup drawer view
+        setupDrawerContent(navigationView);
+
+
         this.updateNavigationHeader ();
 
-        //  toolbar.setTitle("I'm hungry");
 
 
     }
+
 
 
 
@@ -92,25 +101,21 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case id.action_map:
                                      toolbar.setTitle("I'm hungry");
-                    configureAndShowMapFragment(mMapFragment);
+                    configureAndShowFragment (mMapFragment);
                     return true;
 
                 case id.action_list_view:
                     toolbar.setTitle("List View");
-                    configureAndShowMapFragment(mListViewFragmentFragment);
+                    configureAndShowFragment (mListViewFragmentFragment);
 
                     return true;
 
                 case id.action_workmates:
                                      toolbar.setTitle("Workmates");
-                    configureAndShowMapFragment(mWorkmatesFragment);
+                    configureAndShowFragment (mWorkmatesFragment);
 
                     return true;
 
-                case id.logoutFragment:
-                     signOutCurrentUser();
-
-                    return true;
 
 
             }
@@ -119,12 +124,48 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+    private void setupDrawerContent(com.google.android.material.navigation.NavigationView navigationView) {
+
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+
+    public void selectDrawerItem(MenuItem menuItem) {
+
+
+        switch(menuItem.getItemId()) {
+            case com.a.mygo4lunch.R.id.yourLunch:
+                this.startActivityDetailRestaurant ();
+                break;
+            case com.a.mygo4lunch.R.id.settings:
+                this.startActivitySettings();
+                break;
+            case com.a.mygo4lunch.R.id.logout:
+                this.signOutCurrentUser();
+                timber.log.Timber.i ("onNavigationItemSelected: %s", 2);
+                break;
+            default:
+
+        }
+
+
+
+    }
+
+
+
     // --------------
     // FRAGMENTS
     // --------------
 
 
-    private void configureAndShowMapFragment(Fragment mFragment) {
+    private void configureAndShowFragment(Fragment mFragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(id.frame_main, mFragment)
                 .commit();
@@ -147,6 +188,15 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen (START)) {
+            drawerLayout.closeDrawer (START);
+        } else {
+            super.onBackPressed ();
+        }
+    }
 
 
     private void updateNavigationHeader() {
@@ -178,13 +228,18 @@ public class MainActivity extends AppCompatActivity {
             textViewNavName.setText (username);
             textViewNavMail.setText (email);
         }
+
+
+
     }
+
+
 
 
     private void signOutCurrentUser() {
        showSnackBar (this.drawerLayout, "sign out");
         if (user != null) {
-            com.google.firebase.auth.FirebaseAuth.getInstance ().signOut ();
+            FirebaseAuth.getInstance ().signOut ();
             startAuthActivity ();
             finishAffinity ();
         }
@@ -194,7 +249,21 @@ public class MainActivity extends AppCompatActivity {
     private void startAuthActivity() {
         android.content.Intent intent = new android.content.Intent (this, ConnectionActivity.class);
         startActivity (intent);
+
     }
+
+    private void startActivityDetailRestaurant() {
+        android.content.Intent intent = new android.content.Intent (this, com.a.mygo4lunch.view.activities.DetailRestaurant.class);
+        startActivity (intent);
+    }
+
+    private void startActivitySettings() {
+        android.content.Intent intent = new android.content.Intent (this, com.a.mygo4lunch.view.activities.ActivitySettings.class);
+        startActivity (intent);
+    }
+
+
+
     public static void showSnackBar(View view, String message) {
         com.google.android.material.snackbar.Snackbar.make (view, message, com.google.android.material.snackbar.Snackbar.LENGTH_SHORT).show ();
     }

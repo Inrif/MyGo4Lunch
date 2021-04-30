@@ -8,10 +8,13 @@ import com.a.mygo4lunch.R.id;
 import com.a.mygo4lunch.models.RestaurantDetail;
 import com.a.mygo4lunch.tools.Constant;
 
+import static android.content.ContentValues.TAG;
+import static com.a.mygo4lunch.view.activities.MainActivity.*;
 import butterknife.OnClick;
 
 import static com.a.mygo4lunch.tools.Constant.PLACE_KEY;
 import static com.a.mygo4lunch.view.activities.ConnectionActivity.getCurrentUser;
+import static com.a.mygo4lunch.view.activities.MainActivity.restaurants;
 
 public class DetailRestaurant extends AppCompatActivity {
     private static final int PERMISSION_CALL = 100;
@@ -50,6 +53,9 @@ public class DetailRestaurant extends AppCompatActivity {
     android.widget.ImageButton favoriteButton;
     @butterknife.BindView(id.recyclerView_workers_restaurant_detail)
     androidx.recyclerview.widget.RecyclerView mRecyclerView;
+    @butterknife.BindView(com.a.mygo4lunch.R.id.starVisibility)
+    android.widget.LinearLayout mStarVisibility;
+
     private String phoneNumber;
     private String websiteUrl;
     private String placeId;
@@ -61,6 +67,10 @@ public class DetailRestaurant extends AppCompatActivity {
     private com.google.firebase.firestore.Query query;
     private boolean isLiked = false;
     private RestaurantDetail mRestaurantDetail;
+    public static java.util.List<com.a.mygo4lunch.models.Result> restaurants = new java.util.ArrayList<> ();;
+//    public static java.util.List<com.a.mygo4lunch.models.Result> restaurants;
+
+
 
 
 
@@ -68,57 +78,102 @@ public class DetailRestaurant extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (com.a.mygo4lunch.R.layout.activity_detail_restaurant);
-
+        butterknife.ButterKnife.bind (this); //Configure Butterknife
 
         //get placeId and name extra intent
-        placeId = getIntent ().getStringExtra ("placeId");
-        nameResto = getIntent ().getStringExtra ("restaurantName");
+        placeId = getIntent ().getStringExtra ("restaurantId");
+       String title = getIntent ().getStringExtra ("title");
 
         query = com.a.mygo4lunch.firebase.UserHelper.getAllUsers ().whereEqualTo ("name",
                 java.util.Objects.requireNonNull (getCurrentUser ()).getDisplayName ());
 
         getFavoriteRestaurant ();
 
-        this.updateView(mRestaurantDetail);
+
+//retrieve detail of restauirant by marker clicked
+      updateD();
+
+       mRestaurantTextname.setText (placeId);
+        mImageView.setImageResource (com.a.mygo4lunch.R.drawable.restaurant_detail);
+//        mRestaurantTextadress.setText ("111 Via della Nocetta");
+//        mRestaurantTextadress.setText (placeId);
+
+
+
+
+
     }
 
 
-    private void updateView(com.a.mygo4lunch.models.RestaurantDetail mRestaurantDetail) {
-        //listen change on worker list
-        listenChangeWorkersList ();
-        //path for photo url
-        photoReferencePath (mRestaurantDetail.getPhoto ());
-        //set name and address
-        setNameRestaurant (mRestaurantDetail.getName ());
-        mRestaurantTextadress.setText (mRestaurantDetail.getAddress ());
-        //stars method according to rating
-        Constant.starsView (Constant.starsAccordingToRating (mRestaurantDetail.getRating ()), mRestaurantStar1, mRestaurantStar2, mRestaurantStar3);
-        // Call restaurant if possible
-        callPhone.setOnClickListener (v -> setCallPhoneIfPossible (mRestaurantDetail.getPhone_number ()));
+    private void updateD() {
 
-        // go to website if there is one
-        websiteButton.setOnClickListener (view -> {
-            if (mRestaurantDetail.getWebsite () == null) {
-                android.widget.Toast.makeText (this, com.a.mygo4lunch.R.string.no_website_for_restaurant, android.widget.Toast.LENGTH_SHORT).show ();
-            } else {
-                websiteUrl = mRestaurantDetail.getWebsite ();
-                callWebsiteUrl ();
-            }
-        });
+        if (placeId != null){
 
-        mRestaurantFavoris = new com.a.mygo4lunch.models.RestaurantFavoris ("", mRestaurantDetail.getName (), placeId, mRestaurantDetail.getAddress (),
-                mRestaurantDetail.getPhoto (), mRestaurantDetail.getRating ());
-        //configure click on like star
-        if (mRestaurantFavorises != null) {
-            for (com.a.mygo4lunch.models.RestaurantFavoris restaurantFavoris : mRestaurantFavorises) {
-                if (restaurantFavoris.getPlaceId ().equalsIgnoreCase (placeId)) {
-                    isLiked = true;
-                    updateButtonLike ();
+            for (int i = 0; i < restaurants.size(); i++) {
+
+                if (restaurants.get (i).getPlaceId ()== placeId) {
+                    String restoName = restaurants.get (i).getName ();
+                    mRestaurantTextname.setText (restoName);
+
+                    java.util.List<com.a.mygo4lunch.models.Photo> restoPhoto = restaurants.get (i).getPhotos ();
+
+//                Double restoRating = restaurants.get (i).getRating ();
+//                if (restoRating <= 3){
+//                    mStarVisibility.setVisibility (3);
+//                }
+                    String restoAdress = restaurants.get (i).getVicinity ();
+                    mRestaurantTextadress.setText (restoAdress);
+
                 }
+
             }
+
+
         }
-        fabButtonColor ();
+        android.util.Log.d (TAG, "updateD: "+ restaurants);
+
+
+//        mImageView.setImageResource (com.a.mygo4lunch.R.drawable.restaurant_detail);
+//        mRestaurantTextadress.setText ("111 Via della Nocetta");
     }
+
+
+//    private void updateView(com.a.mygo4lunch.models.RestaurantDetail mRestaurantDetail) {
+//        //listen change on worker list
+//        listenChangeWorkersList ();
+//        //path for photo url
+//        photoReferencePath (mRestaurantDetail.getPhoto ());
+//        //set name and address
+//        setNameRestaurant (mRestaurantDetail.getName ());
+//        mRestaurantTextadress.setText (mRestaurantDetail.getAddress ());
+//        //stars method according to rating
+//        Constant.starsView (Constant.starsAccordingToRating (mRestaurantDetail.getRating ()), mRestaurantStar1, mRestaurantStar2, mRestaurantStar3);
+//        // Call restaurant if possible
+//        callPhone.setOnClickListener (v -> setCallPhoneIfPossible (mRestaurantDetail.getPhone_number ()));
+//
+//        // go to website if there is one
+//        websiteButton.setOnClickListener (view -> {
+//            if (mRestaurantDetail.getWebsite () == null) {
+//                android.widget.Toast.makeText (this, com.a.mygo4lunch.R.string.no_website_for_restaurant, android.widget.Toast.LENGTH_SHORT).show ();
+//            } else {
+//                websiteUrl = mRestaurantDetail.getWebsite ();
+//                callWebsiteUrl ();
+//            }
+//        });
+//
+//        mRestaurantFavoris = new com.a.mygo4lunch.models.RestaurantFavoris ("", mRestaurantDetail.getName (), placeId, mRestaurantDetail.getAddress (),
+//                mRestaurantDetail.getPhoto (), mRestaurantDetail.getRating ());
+//        //configure click on like star
+//        if (mRestaurantFavorises != null) {
+//            for (com.a.mygo4lunch.models.RestaurantFavoris restaurantFavoris : mRestaurantFavorises) {
+//                if (restaurantFavoris.getPlaceId ().equalsIgnoreCase (placeId)) {
+//                    isLiked = true;
+//                    updateButtonLike ();
+//                }
+//            }
+//        }
+//        fabButtonColor ();
+//    }
 
 
 

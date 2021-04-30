@@ -1,5 +1,6 @@
 package com.a.mygo4lunch.view.fragments;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.a.mygo4lunch.R;
 import com.a.mygo4lunch.R.id;
+import com.a.mygo4lunch.models.RestaurantDetail;
 import com.a.mygo4lunch.models.Result;
 import com.a.mygo4lunch.view.activities.MainActivity;
 import com.a.mygo4lunch.view.adapter.ListViewAdapter;
@@ -48,6 +50,8 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
     private static String LOCATION_TYPE = "restaurant";
     private LatLng defaultLocation = new LatLng (48.8534, 2.3488);
     public ArrayList<Marker> markers = new java.util.ArrayList<> ();
+
+    private ListViewAdapter.onClickRestaurantItemListener mListener;
 
 
 
@@ -82,7 +86,7 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
         recyclerView.setLayoutManager(new LinearLayoutManager (getActivity()));
 
         // 3. create an adapter
-        ListViewAdapter mAdapter = new ListViewAdapter (restaurants,getActivity ());
+        ListViewAdapter mAdapter = new ListViewAdapter (restaurants,getActivity (),mListener);
 
         // 4. set adapter
         recyclerView.setAdapter(mAdapter);
@@ -115,7 +119,7 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
 
     public void searchPlace() {
         java.util.List<Field> fields = java.util.Arrays.asList(Field.ID, Field.NAME);
-        android.content.Intent intent = new IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+        Intent intent = new IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
                 .setTypeFilter(TypeFilter.ESTABLISHMENT)
                 .setCountry("FR")
                 //.setLocationBias(RectangularBounds.newInstance(setBounds(mLastKnownLocation, 1000)))
@@ -126,7 +130,7 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable android.content.Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
@@ -170,11 +174,13 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
 
     @Override
     public void onClickRestaurantItem(int position) {
-        android.content.Intent intent = new android.content.Intent (getContext (), com.a.mygo4lunch.models.RestaurantDetail.class);
+        timber.log.Timber.i ("onClickRestaurantItem: %s", restaurants);
+
+        Intent intent = new Intent (getContext (), RestaurantDetail.class);
         intent.putExtra ("placeId", restaurants.get (position).getPlaceId ());
         intent.putExtra ("restaurantName", restaurants.get (position).getName ());
         startActivity (intent);
     }
 
+    }
 
-}

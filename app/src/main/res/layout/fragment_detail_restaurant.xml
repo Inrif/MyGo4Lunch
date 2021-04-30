@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.DetailRestaurant">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragments.DetailRestaurantFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -74,13 +72,11 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:id="@+id/starVisibility"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/restaurant_text_name"
-                    app:layout_constraintTop_toTopOf="@+id/restaurant_text_name"
-                    android:visibility="gone">
+                    app:layout_constraintTop_toTopOf="@+id/restaurant_text_name">
 
                     <ImageView
                         android:id="@+id/restaurant_detail_star1"

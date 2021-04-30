@@ -56,6 +56,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.a.mygo4lunch.view.activities.MainActivity.restaurants;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,6 +77,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     public ArrayList<Marker> markers = new ArrayList<>();
+    java.util.Map<String, String> mMarkerMap = new java.util.HashMap<> ();
 
     public MapFragment() {
         // Required empty public constructor
@@ -113,6 +115,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         getLocation();
+        googleMap.setOnMarkerClickListener (new com.google.android.gms.maps.GoogleMap.OnMarkerClickListener () {
+            @Override
+            public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
+//
+                String restaurantId = mMarkerMap.get(marker.getId());
+              String title = marker.getTitle ();
+
+                Intent intent = new Intent (getContext (), com.a.mygo4lunch.view.activities.DetailRestaurant.class);
+                intent.putExtra ("restaurantId", restaurantId);
+                intent.putExtra ("title", title);
+                startActivity (intent);
+
+                return false;
+
+
+
+
+
+            }
+        });
     }
 
     @android.annotation.SuppressLint("MissingPermission")
@@ -142,7 +164,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(location.getLatitude(),
                                 location.getLongitude()), 17));
-               findPlaces(LOCATION_TYPE);
+             findPlaces(LOCATION_TYPE);
            } else {
                 googleMap.setMyLocationEnabled(false);
                 googleMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -195,16 +217,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             markerOptions.position(latLng);
             // Title for Marker
             markerOptions.title(placeName + " : " + vicinity);
+
             // Color or drawable for marker
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
             // add marker
             Marker marker = googleMap.addMarker(markerOptions);
             markers.add(marker);
+
+            //Added a HashMap
+            mMarkerMap.put(marker.getId(), results.get (i).getPlaceId ());
+
             // move map camera
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
         }
+
+
     }
+
+
 
 
     public boolean checkLocationPermission() {

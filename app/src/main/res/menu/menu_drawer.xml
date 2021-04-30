@@ -5,15 +5,15 @@ tools:showIn="navigation_view">
 
 <group android:checkableBehavior="single">
     <item
-        android:id="@+id/yourLunchFragment"
+        android:id="@+id/yourLunch"
         android:icon="@drawable/ic_restaurant_black_24dp"
         android:title="@string/your_lunch" />
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/settings"
         android:icon="@drawable/ic_settings_24dp"
         android:title="@string/settings" />
     <item
-        android:id="@+id/logoutFragment"
+        android:id="@+id/logout"
         android:icon="@drawable/ic_power_settings_new_white_24dp"
         android:title="@string/logout_MAJ" />
 </group>

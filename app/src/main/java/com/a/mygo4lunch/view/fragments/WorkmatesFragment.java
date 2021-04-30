@@ -26,6 +26,7 @@ import com.google.firebase.firestore.Query;
 
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 import static com.a.mygo4lunch.view.activities.MainActivity.restaurants;
 
 
@@ -67,7 +68,10 @@ public class WorkmatesFragment extends Fragment  implements userClickListener{
         mRecyclerView.setLayoutManager (new LinearLayoutManager (view.getContext ()));
 
         initListAdapter ();
-        timber.log.Timber.i ("onCreate: %s", mWorkers);
+//        timber.log.Timber.i ("onCreate: %s", mWorkers);
+
+        android.util.Log.d (TAG, "Result: "+ mWorkers);
+
         return view;
     }
 
