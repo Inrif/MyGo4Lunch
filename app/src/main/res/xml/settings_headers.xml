@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <Preference
+        android:fragment="com.a.mygo4lunch.view.fragments.NotificationsFragment"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:summary="@string/set_notification_rules"
+        android:title="@string/notification_header" />
+
+    <Preference
+        android:fragment="com.a.mygo4lunch.view.fragments.MapsSettingsFragment"
+        android:icon="@drawable/ic_baseline_location_on_24"
+        android:summary="@string/define_map_settings"
+        android:title="@string/map_settings" />
+
+</PreferenceScreen>
+

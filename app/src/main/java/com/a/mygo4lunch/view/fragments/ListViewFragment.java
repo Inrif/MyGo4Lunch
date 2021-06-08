@@ -50,6 +50,9 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
     private static String LOCATION_TYPE = "restaurant";
     private LatLng defaultLocation = new LatLng (48.8534, 2.3488);
     public ArrayList<Marker> markers = new java.util.ArrayList<> ();
+    public static com.google.android.gms.maps.model.LatLng mCurrentLocation;
+
+
 
     private ListViewAdapter.onClickRestaurantItemListener mListener;
 
@@ -76,7 +79,7 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        android.view.View view = inflater.inflate (R.layout.fragment_list_view, container, false);
+        android.view.View view = inflater.inflate (R.layout.fragment_list_view1, container, false);
 
 
 // Add the following lines to create RecyclerView
@@ -86,8 +89,7 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
         recyclerView.setLayoutManager(new LinearLayoutManager (getActivity()));
 
         // 3. create an adapter
-        ListViewAdapter mAdapter = new ListViewAdapter (restaurants,getActivity (),mListener);
-
+        ListViewAdapter mAdapter = new ListViewAdapter (restaurants,getActivity (),mListener, mCurrentLocation);
         // 4. set adapter
         recyclerView.setAdapter(mAdapter);
         // 5. set item animator to DefaultAnimator
@@ -163,6 +165,7 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
         }
         return null;
     }
+
     private Result getResultFromPlace(Place place) {
         for (Result result: MainActivity.restaurants) {
             if (result.getPlaceId().equals(place.getId())){
@@ -176,9 +179,9 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
     public void onClickRestaurantItem(int position) {
         timber.log.Timber.i ("onClickRestaurantItem: %s", restaurants);
 
-        Intent intent = new Intent (getContext (), RestaurantDetail.class);
-        intent.putExtra ("placeId", restaurants.get (position).getPlaceId ());
-        intent.putExtra ("restaurantName", restaurants.get (position).getName ());
+        Intent intent = new Intent (getContext (), com.a.mygo4lunch.view.activities.DetailRestaurant.class);
+        intent.putExtra ("placeId", MainActivity.restaurants.get (position).getPlaceId ());
+        intent.putExtra ("restaurantName", MainActivity.restaurants.get (position).getName ());
         startActivity (intent);
     }
 

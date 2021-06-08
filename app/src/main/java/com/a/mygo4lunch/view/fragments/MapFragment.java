@@ -119,15 +119,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             @Override
             public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
 //
-                String restaurantId = mMarkerMap.get(marker.getId());
-              String title = marker.getTitle ();
+                String placeId = mMarkerMap.get(marker.getId());
+
 
                 Intent intent = new Intent (getContext (), com.a.mygo4lunch.view.activities.DetailRestaurant.class);
-                intent.putExtra ("restaurantId", restaurantId);
-                intent.putExtra ("title", title);
+                intent.putExtra ("placeId", placeId);
+
                 startActivity (intent);
 
+
+
+//                com.a.mygo4lunch.models.PlaceDetailsResult positionMarkerList = ( com.a.mygo4lunch.models.PlaceDetailsResult ) marker.getTag();
+//                Intent intent = new Intent(getContext(), com.a.mygo4lunch.view.activities.DetailRestaurant.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("placeDetailsResult", positionMarkerList);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+
+
                 return false;
+
 
 
 

@@ -12,10 +12,7 @@
         <item name="spinBars">true</item>
         <item name="color">@color/white</item>
     </style>
-    <!-- restaurant list -->
-    <string name="restaurant_image">restaurant Image</string>
-    <string name="restaurant_open">Restaurant open</string>
-    <string name="not_open_yet">Not open yet</string>
+
 
     <!-- item -->
     <style name="item_text_style">
@@ -47,14 +44,6 @@
         <item name="android:src">@drawable/ic_baseline_stars_24</item>
     </style>
 
-    <string name="filter_restaurant_by">Filter restaurant by :</string>
-    <string name="no_star">No star</string>
-    <string name="_1">1 star</string>
-    <string name="_2">2 stars</string>
-    <string name="_3">3 stars</string>
-    <string name="no_filter">No filter</string>
-    <string name="no_worker_has_chosen_this_restaurant">No Worker has chosen this restaurant</string>
-    <string name="no_restaurant_for_this_filter_selection">No restaurant for this filter selection</string>
 
     <!-- List filter style -->
     <style name="list_filter">

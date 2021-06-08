@@ -3,13 +3,16 @@ package com.a.mygo4lunch.tools;
 import android.widget.Toast;
 
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+import static java.lang.StrictMath.cos;
+import static java.lang.StrictMath.sin;
 
 /**
  * Created by Romuald HOUNSA on 21/02/2021.
  */
 public class Constant {
     public static String PLACE_API_BASE_URL = "https://maps.googleapis.com/maps/";
-    public static String PLACE_KEY = "AIzaSyDSJqc7yJL30pE2rJPmH1DvbJnIxWKPGb8";
+//    public static String PLACE_KEY = "AIzaSyDSJqc7yJL30pE2rJPmH1DvbJnIxWKPGb8";
+    public static String PLACE_KEY = "AIzaSyDVJ9xYciyDlgV1gsLn7u2agRyuO_ye6GI";
 
     /**
      * create method to attribute stars
@@ -87,6 +90,38 @@ public class Constant {
         }
         return restaurants;
     }
+
+
+
+//
+//    public static getDistanceInMeters(com.google.android.gms.maps.model.LatLng userLocation){
+//        double earthRadius =6371.0;
+//
+//         arg1:Double = sin(Math.toRadians(this.locationLat)) * sin(Math.toRadians(userLocation.latitude));
+//         arg2:Double = cos(Math.toRadians(this.locationLat)) * cos(Math.toRadians(userLocation.latitude)) *
+//                cos(Math.toRadians(userLocation.longitude-this.locationLng));
+//         distanceInKMeters:Double=earthRadius* acos(arg1+arg2);
+//        return (distanceInKMeters*1000).toInt()
+//    }
+
+//calculates the distance between two points defined by their latitude and longitude
+
+    public static int calculateDistance(com.google.android.gms.maps.model.LatLng StartP, com.google.android.gms.maps.model.LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        return (int) Math.floor(Radius * c * 1000);
+    }
+
 
 
 }

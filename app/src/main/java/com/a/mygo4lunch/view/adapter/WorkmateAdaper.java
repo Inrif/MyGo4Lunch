@@ -71,15 +71,7 @@ public class WorkmateAdaper extends FirestoreRecyclerAdapter<User, ItemWorkmateV
 
     }
 
-    /**
-     * Returns the total number of items in the data set held by the adapter.
-     *
-     * @return The total number of items in this adapter.
-     */
-    @Override
-    public int getItemCount() {
-        return 0;
-    }
+
 
     public static class ItemWorkmateViewHolder extends ViewHolder implements View.OnClickListener{
         @BindView(com.a.mygo4lunch.R.id.user_avatar)

@@ -20,6 +20,15 @@ public class RestaurantFavoris {
         this.rating = rating;
     }
 
+
+    /**
+     * constructor needed to firebase
+     */
+    @SuppressWarnings("constructor needed to firebase")
+    public RestaurantFavoris() {
+    }
+
+
     public String getUid() {
         return uid;
     }

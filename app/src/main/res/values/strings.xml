@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MyGo4Lunch</string>
-    <string name="google_maps_key">AIzaSyDSJqc7yJL30pE2rJPmH1DvbJnIxWKPGb8</string>
+    <string name="google_maps_key">AIzaSyDVJ9xYciyDlgV1gsLn7u2agRyuO_ye6GI</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -45,6 +45,65 @@
     <string name="restaurant_delete">Restaurant deleted from your favorite list</string>
     <string name="no_telephone_number_for_this_restaurant">No telephone for this restaurant</string>
     <string name="no_website_for_restaurant">No website for this restaurant</string>
+    <string name="no_phone_available">No phone available</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="not_available">Not Available</string>
+
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Notifications</string>
+    <string name="location">Location</string>
+    <string name="choose_options">Choose your options</string>
+
+    <!-- Sync Preferences -->
+    <string name="enable_notification">Enable notifications</string>
+    <string name="enable_location">Enable geolocation</string>
+    <string name="define_map_zoom">Define map zoom</string>
+    <string name="zoom_level">" zoom level"</string>
+    <string name="define_your_radius_search">Define your radius restaurant search</string>
+    <string name="meters_radius">" meters radius search restaurant"</string>
+    <string name="notification_header">Notification</string>
+    <string name="set_notification_rules">Set notifications configuration</string>
+    <string name="map_settings">Map settings</string>
+    <string name="define_map_settings">Define your own map settings</string>
+    <string name="define_establishment">Define your establishment type search</string>
+    <string name="define_favorite_map_radius">Define your favorite default map radius search</string>
+    <string name="define_favorite_type">Define your favorite establishment type search</string>
+    <string name="array_high">High</string>
+    <string name="array_medium">Medium</string>
+    <string name="array_less">Less</string>
+    <string name="array_default">Default</string>
+    <string name="array_radius_5000">Radius 5000 m</string>
+    <string name="array_radius_3000">Radius 3000 m</string>
+    <string name="array_radius_2000">Radius 2000 m</string>
+    <string name="array_radius_1000">Radius 1000 m</string>
+    <string name="array_radius_500">Radius 500 m</string>
+    <string name="array_type_resto">restaurant</string>
+    <string name="array_type_bar">bar</string>
+    <string name="array_type_hotel">hotel</string>
+    <string name="array_type_cafe">cafe</string>
+    <string name="array_type_food">food</string>
+
+    <!-- NOTIFICATION SERVICE -->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="notification_title">You have received a message</string>
+    <string name="message_from_go4lunch">Message from Go4Lunch</string>
+    <string name="app_logo" translatable="false">app logo</string>
+    <string name="filter_restaurant_by">Filter restaurant by :</string>
+    <string name="no_star">No star</string>
+    <string name="_1">1 star</string>
+    <string name="_2">2 stars</string>
+    <string name="_3">3 stars</string>
+    <string name="no_filter">No filter</string>
+    <string name="no_worker_has_chosen_this_restaurant">No Worker has chosen this restaurant</string>
+    <string name="no_restaurant_for_this_filter_selection">No restaurant for this filter selection</string>
+
+    <!-- restaurant list -->
+    <string name="restaurant_image">restaurant Image</string>
+    <string name="restaurant_open">Restaurant open</string>
+    <string name="not_open_yet">Not open yet</string>
+
+
 
 </resources>
 

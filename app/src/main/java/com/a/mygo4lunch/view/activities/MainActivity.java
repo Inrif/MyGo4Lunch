@@ -38,9 +38,9 @@ import static com.a.mygo4lunch.view.activities.ConnectionActivity.mFirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
 
-    private MapFragment mMapFragment = new MapFragment();
-    private ListViewFragment mListViewFragmentFragment = new ListViewFragment ();
-    private WorkmatesFragment mWorkmatesFragment = new WorkmatesFragment ();
+    private final MapFragment mMapFragment = new MapFragment();
+    private final ListViewFragment mListViewFragmentFragment = new ListViewFragment ();
+    private final WorkmatesFragment mWorkmatesFragment = new WorkmatesFragment ();
     private DetailRestaurantFragment mDetailRestaurantFragment = new DetailRestaurantFragment ();
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new OnNavigationItemSelectedListener() {
 
         @Override
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startActivitySettings() {
-        android.content.Intent intent = new android.content.Intent (this, com.a.mygo4lunch.view.activities.ActivitySettings.class);
+        android.content.Intent intent = new android.content.Intent (this, com.a.mygo4lunch.view.activities.SettingsActivity.class);
         startActivity (intent);
     }
 

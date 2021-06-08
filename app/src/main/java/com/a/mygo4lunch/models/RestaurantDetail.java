@@ -20,6 +20,8 @@ public class RestaurantDetail {
         this.rating = rating;
     }
 
+
+
     public String getAddress() {
         return address;
     }
