@@ -51,7 +51,9 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
     private LatLng defaultLocation = new LatLng (48.8534, 2.3488);
     public ArrayList<Marker> markers = new java.util.ArrayList<> ();
     public static com.google.android.gms.maps.model.LatLng mCurrentLocation;
-
+    private com.bumptech.glide.RequestManager glide;
+    private android.content.Context mContext;
+    private LatLng mLatLng;
 
 
     private ListViewAdapter.onClickRestaurantItemListener mListener;
@@ -87,10 +89,14 @@ public class ListViewFragment extends Fragment implements onClickRestaurantItemL
         RecyclerView recyclerView = view.findViewById (id.recyclerView);
 // 2. set layoutManger
         recyclerView.setLayoutManager(new LinearLayoutManager (getActivity()));
+//        recyclerView.setLayoutManager(new LinearLayoutManager (view.getContext ()));
 
         // 3. create an adapter
-        ListViewAdapter mAdapter = new ListViewAdapter (restaurants,getActivity (),mListener, mCurrentLocation);
-        // 4. set adapter
+        ListViewAdapter mAdapter = new ListViewAdapter (restaurants, getActivity (), mListener, mLatLng, glide);
+/*
+                ListViewAdapter mAdapter = new ListViewAdapter (restaurants, mListener, LOCATION_TYPE, mContext);
+         4. set adapter
+        */
         recyclerView.setAdapter(mAdapter);
         // 5. set item animator to DefaultAnimator
         recyclerView.setItemAnimator(new DefaultItemAnimator ());

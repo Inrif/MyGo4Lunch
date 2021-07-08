@@ -37,6 +37,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".view.activities.FavoritesRestaurant"
+            android:parentActivityName=".view.activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.activities.MainActivity" />
+        </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
